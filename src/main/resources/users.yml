@@ -1,0 +1,43 @@
+currency-note:
+  name: "%value%"
+  lore:
+    - "&7&o(( Right Click to redeem ))"
+
+ranks:
+  algorithm:
+
+    # LINEAR, EXPONENTIAL
+    type: "LINEAR"
+
+    # Linear algorithm is in the form of y=mx+c
+    # where y is the price, m is increase-per-rank, c is base-cost, x is the rank)
+    linear:
+      increase-per-rank: 100
+      base-cost: 100
+
+    # Exponential algorithm s in the form of y=ab^x
+    # where y is the price, a is the initial-amount, b is the growth factor, x is the rank
+    exponential:
+      initial-amount: 0
+      growth-factor: 0
+
+  # Rank Commands (Rewards)
+  # Format:
+  # Rank number:
+  #  - Command To Run
+  # Variables:
+  # - %player% ~ The name of the player
+  commands:
+    1:
+      - "eco give %player% 10"
+
+  # Rank Displays
+  # Used to format messages and in placeholders
+  displays:
+
+    # The display : string
+    # Variables:
+    # - %rank-raw% ~ The raw rank number without formatting: 100000
+    # - %rank-comma% ~ Rank number formatted with commas: 100,000
+    # - %rank-letter% ~ Rank number formatted with letters: 100k
+    0: "%rank-comma%"

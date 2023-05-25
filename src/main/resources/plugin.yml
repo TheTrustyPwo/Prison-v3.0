@@ -1,0 +1,7 @@
+name: Prison
+version: '${version}'
+main: net.evilkingdom.prison.Prison
+api-version: 1.19
+prefix: Prison
+authors: [ TheTrustyPwo ]
+description: Evil Kingdom Prison

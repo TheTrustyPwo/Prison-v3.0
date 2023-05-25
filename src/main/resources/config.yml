@@ -1,0 +1,3 @@
+mongo:
+  connection_url: "mongodb+srv://admin:RABrK3ox9qfrZfp2@evil.cyykl.mongodb.net/?retryWrites=true&w=majority"
+  database: "prison"

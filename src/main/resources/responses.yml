@@ -1,0 +1,101 @@
+# Messages
+
+balance:
+  messages:
+    - "&r"
+    - "&f&l%player% Balances"
+    - "&8- %tokens%"
+    - "&8- %gems%"
+    - "&r"
+
+currency-withdraw:
+  messages:
+    - "&eYou have withdrawn %formatted% &efrom your balance"
+
+currency-redeem:
+  messages:
+    - "&eYou have redeemed %formatted% &einto your balance"
+
+currency-set:
+  messages:
+    - "&aSuccessfully set &e%player%'s %currency% &abalance to %amount%"
+  title:
+    title: "&a&lSUCCESS"
+    subtitle: "&7&o(( Modified %player%'s Balance ))"
+    fade-in: 5
+    stay: 15
+    fade-out: 5
+
+currency-add:
+  messages:
+    - "&aSuccessfully added %amount% &ato &e%player%'s %currency% &abalance"
+  title:
+    title: "&a&lSUCCESS"
+    subtitle: "&7&o(( Modified %player%'s Balance ))"
+    fade-in: 5
+    stay: 15
+    fade-out: 5
+
+currency-remove:
+  messages:
+    - "&aSuccessfully removed %amount% &afrom &e%player%'s %currency% &abalance"
+  title:
+    title: "&a&lSUCCESS"
+    subtitle: "&7&o(( Modified %player%'s Balance ))"
+    fade-in: 5
+    stay: 15
+    fade-out: 5
+
+# The message sent when the player successfully purchases rankup(s) through the /rankup command
+# Variables:
+# - %rank-before% ~ The rank before the player executed the command
+# - %rank-after% ~ The rank after the player executed the command
+# Note: They are formatted based on their rank display
+rankup:
+  messages:
+    - "&r"
+    - " &6&lPurchased Rankup"
+    - " &fYou have unlocked Rank &6%rank-after%&f!"
+    - "&r"
+  title:
+    title: "&6&lRankup"
+    subtitle: "&fRank &6%rank-after% &fUnlocked"
+    fade-in: 5
+    stay: 15
+    fade-out: 5
+
+# The message sent when the player successfully purchases rankup(s) through the /maxrankup command
+# Variables:
+# - %rank-before% ~ The rank before the player executed the command
+# - %rank-after% ~ The rank after the player executed the command
+# Note: They are formatted based on their rank display
+maxrankup:
+  messages:
+    - "&r"
+    - " &6&lPurchased Rankup!"
+    - " &fYou have ranked up from &6%rank-before% &fto &6%rank-after%&f!"
+    - "&r"
+  title:
+    title: "&6&lRankup!"
+    subtitle: "&fRank &6%rank-after% &fUnlocked"
+    fade-in: 5
+    stay: 15
+    fade-out: 5
+
+# Errors
+
+only-players-command:
+  messages:
+    - "&c&l(!) &4Only players can execute this command!"
+
+invalid-currency:
+  messages:
+    - "&c&l(!) &4%currency% &cis not a valid currency!"
+
+not-enough-currency:
+  messages:
+    - "&c&l(!) &cYou do not have enough &4%currency% &cto afford that!"
+
+negative-number:
+  messages:
+    - "&c&l(!) &4%amount% &ccannot be negative!"

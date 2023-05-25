@@ -1,0 +1,57 @@
+plugins {
+    id('java')
+    id('com.github.johnrengelman.shadow').version('7.1.2')
+}
+
+group = 'net.evilkingdom'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        url = 'https://papermc.io/repo/repository/maven-releases/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:24.0.1'
+    compileOnly('org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT')
+    compileOnly("com.mojang:authlib:1.5.25")
+    implementation('org.mongodb:mongodb-driver-sync:4.9.0')
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
+    compileOnly fileTree(dir: 'lib', include: '*.jar')
+}
+
+def targetJavaVersion = 17
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
