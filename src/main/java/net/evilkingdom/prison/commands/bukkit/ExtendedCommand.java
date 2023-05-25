@@ -55,7 +55,7 @@ public class ExtendedCommand extends Command implements PluginIdentifiableComman
             subCommandDepth++;
         }
         final String[] effectiveArguments = Arrays.copyOfRange(args, subCommandDepth, args.length);
-        int lastArgumentIndex = effectiveArguments.length - 1;
+        int lastArgumentIndex = Math.max(effectiveArguments.length - 1, 0);
         List<String> tabComplete = new ArrayList<>();
         for (CommandNode subNode : realNode.getChildren().values()) {
             if (subNode.canUse(sender)) tabComplete.add(subNode.getName());

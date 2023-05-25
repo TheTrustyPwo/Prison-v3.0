@@ -5,8 +5,8 @@ import org.bukkit.Location;
 import java.util.UUID;
 
 public class PrivateMine {
-    private final UUID owner;
-    private final int gridIndex;
-    private final Location spawnPoint;
+//    private final UUID owner;
+//    private final int gridIndex;
+//    private final Location spawnPoint;
 
 }

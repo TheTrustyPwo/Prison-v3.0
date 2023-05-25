@@ -65,12 +65,12 @@ public final class Commands {
 
     @Nullable
     public static ParameterType<?> getParameterType(@NotNull final Class<?> clazz) {
-        Preconditions.checkArgument(clazz != null, "Clazz cannot be null!");
+        Preconditions.checkArgument(clazz != null, "Class cannot be null!");
         return PARAMETER_TYPES.get(clazz);
     }
 
     public static void unregister(@NotNull final ExtendedCommand command) {
-        Preconditions.checkArgument(command != null, "Command cannot be nulL!");
+        Preconditions.checkArgument(command != null, "Command cannot be null!");
         command.unregister(getCommandMap());
     }
 
