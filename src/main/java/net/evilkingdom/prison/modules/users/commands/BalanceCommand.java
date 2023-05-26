@@ -7,11 +7,12 @@ import net.evilkingdom.prison.modules.users.User;
 import net.evilkingdom.prison.modules.users.currency.Currency;
 import net.evilkingdom.prison.utils.Response;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class BalanceCommand implements PluginCommand {
     @Command(names = {"balance", "bal"}, async = true)
-    public void execute(@NotNull final CommandSender sender, @Param(defaultValue = "self") final User user) {
+    public void execute(@NotNull final Player sender, @Param(defaultValue = "self") final User user) {
         final long tokens = user.getCurrency(Currency.TOKENS);
         final long gems = user.getCurrency(Currency.GEMS);
         Response.get("balance").replace("%player%", user.getUsername())

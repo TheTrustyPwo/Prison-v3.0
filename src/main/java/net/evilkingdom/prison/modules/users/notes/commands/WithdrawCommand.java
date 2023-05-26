@@ -21,7 +21,7 @@ public class WithdrawCommand implements PluginCommand {
         final long total = value * amount;
         if (user.hasCurrency(currency, total)) {
             final ItemStack itemStack = NotesHandler.getInstance().createNoteItem(currency, value, amount);
-            user.addCurrency(currency, -total);
+            user.removeCurrency(currency, total);
             player.getInventory().addItem(itemStack);
             Response.get("currency-withdraw").replace("%formatted%", currency.formatAmountFull(total)).send(player);
         } else {

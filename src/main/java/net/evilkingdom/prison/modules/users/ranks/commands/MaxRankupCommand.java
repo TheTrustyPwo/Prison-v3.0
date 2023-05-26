@@ -33,7 +33,7 @@ public class MaxRankupCommand implements PluginCommand {
         Bukkit.getPluginManager().callEvent(rankupEvent);
         if (rankupEvent.isCancelled()) return;
 
-        user.addCurrency(Currency.TOKENS, -cost);
+        user.removeCurrency(Currency.TOKENS, cost);
         user.setRank(newRank);
 
         for (final String command : RanksHandler.getInstance().getRankCommands(currentRank, newRank))

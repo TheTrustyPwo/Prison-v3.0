@@ -31,7 +31,7 @@ public class CurrencyCommand implements PluginCommand {
 
     @Command(names = "currency remove", permission = Permissions.CURRENCY_ADMIN, async = true)
     public void removeCurrency(@NotNull final CommandSender sender, @Param final User user, @Param final Currency currency, @Nonnegative @Param final long amount) {
-        user.addCurrency(currency, -amount);
+        user.removeCurrency(currency, amount);
         Response.get("currency-remove").replace("%player%", user.getUsername())
                 .replace("%currency%", currency.getFormattedName())
                 .replace("%amount%", currency.formatAmount(amount)).send(sender);

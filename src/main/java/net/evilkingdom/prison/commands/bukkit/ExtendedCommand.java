@@ -63,7 +63,7 @@ public class ExtendedCommand extends Command implements PluginIdentifiableComman
         if (effectiveArguments.length <= realNode.getParameters().size()) {
             ParameterData param = realNode.getParameters().get(lastArgumentIndex);
             List<String> suggestions = param.suggestions();
-            if (suggestions.size() == 0) {
+            if (suggestions.size() == 0 && effectiveArguments.length > 0) {
                 ParameterType<?> type = Commands.getParameterType(param.type());
                 tabComplete.addAll(type.tabComplete(sender, effectiveArguments[lastArgumentIndex]));
             } else {

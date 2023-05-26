@@ -15,6 +15,9 @@ import java.util.List;
 public abstract class PluginModule {
     private @NotNull YamlConfiguration config = loadConfig();
     private boolean loaded;
+    private List<PluginCommand> commands;
+    private List<Listener> listeners;
+    private List<PluginHandler> pluginHandlers;
 
     @NotNull
     public abstract String getName();
@@ -23,14 +26,17 @@ public abstract class PluginModule {
     public abstract String getConfigName();
 
     public void onEnable() {
-        for (PluginHandler handler : getPluginHandlers()) {
+        this.commands = initializeCommands();
+        this.listeners = initializeListeners();
+        this.pluginHandlers = initializePluginHandlers();
+        for (PluginHandler handler : this.pluginHandlers) {
             handler.load();
             handler.setLoaded(true);
         }
     }
 
     public void onDisable() {
-        for (PluginHandler handler : getPluginHandlers()) {
+        for (PluginHandler handler : this.pluginHandlers) {
             if (handler.isLoaded()) handler.unload();
             handler.setLoaded(false);
         }
@@ -42,17 +48,17 @@ public abstract class PluginModule {
 
     @NotNull
     public List<PluginCommand> getCommands() {
-        return Collections.emptyList();
+        return this.commands;
     }
 
     @NotNull
     public List<Listener> getListeners() {
-        return Collections.emptyList();
+        return this.listeners;
     }
 
     @NotNull
     public List<PluginHandler> getPluginHandlers() {
-        return Collections.emptyList();
+        return this.pluginHandlers;
     }
 
     private File getConfigFile() {
@@ -89,5 +95,19 @@ public abstract class PluginModule {
 
     public @NotNull YamlConfiguration getConfig() {
         return config;
+    }
+
+    // Override these methods in module classes to provide the desired instances
+
+    protected List<PluginCommand> initializeCommands() {
+        return Collections.emptyList();
+    }
+
+    protected List<Listener> initializeListeners() {
+        return Collections.emptyList();
+    }
+
+    protected List<PluginHandler> initializePluginHandlers() {
+        return Collections.emptyList();
     }
 }

@@ -100,8 +100,12 @@ public class CommandNode {
         List<Object> objects = new ArrayList<>(methodParamCount);
 
         if (Player.class.isAssignableFrom(this.method.getParameterTypes()[0])) {
-            if (sender instanceof Player player) objects.add(player);
-            else Response.get("only-players-command").send(sender);
+            if (sender instanceof Player player) {
+                objects.add(player);
+            } else {
+                Response.get("only-players-command").send(sender);
+                return false;
+            }
         } else {
             objects.add(sender);
         }

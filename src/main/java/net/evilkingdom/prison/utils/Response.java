@@ -23,7 +23,8 @@ public record Response(List<String> messages, String actionBar, SoundResponse so
     static {
         RESPONSES = new ConcurrentHashMap<>();
         final File file = new File(Prison.getInstance().getDataFolder(), "responses.yml");
-        if (!file.exists()) Prison.getInstance().saveResource("responses.yml", false);
+        // if (!file.exists()) Prison.getInstance().saveResource("responses.yml", false);
+        Prison.getInstance().saveResource("responses.yml", true);
         RESPONSES_CONFIG = YamlConfiguration.loadConfiguration(file);
         final ConfigurationSection section = RESPONSES_CONFIG.getConfigurationSection("");
         assert section != null;

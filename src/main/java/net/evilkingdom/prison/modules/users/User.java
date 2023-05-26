@@ -4,6 +4,7 @@ import com.google.gson.annotations.JsonAdapter;
 import net.evilkingdom.prison.modules.users.currency.Currency;
 import net.evilkingdom.prison.modules.users.currency.serializers.CurrencySerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnegative;
@@ -31,8 +32,10 @@ public class User {
     }
 
     public String getUsername() {
-        return Bukkit.getPlayer(this.uuid).getName();
+        return getPlayer().getName();
     }
+
+    public Player getPlayer() { return Bukkit.getPlayer(this.uuid); }
 
     public long getRank() {
         return rank;
@@ -50,9 +53,14 @@ public class User {
         return getCurrency(currency) >= amount;
     }
 
-    public void addCurrency(@NotNull Currency currency, long amount) {
+    public void addCurrency(@NotNull Currency currency, @Nonnegative long amount) {
         long current = getCurrency(currency);
         this.currencies.put(currency, current + amount);
+    }
+
+    public void removeCurrency(@NotNull Currency currency, @Nonnegative long amount) {
+        long current = getCurrency(currency);
+        this.currencies.put(currency, Math.max(current - amount, 0));
     }
 
     public void setCurrency(@NotNull Currency currency, @Nonnegative long amount) {

@@ -15,20 +15,19 @@ import org.bukkit.inventory.ItemStack;
 public class NoteRedeemListener implements Listener {
     @EventHandler
     public void onPlayerInteractEvent(final PlayerInteractEvent event) {
-        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            final Player player = event.getPlayer();
-            if (player.getEquipment() != null && NotesHandler.getInstance().isNoteItem(player.getEquipment().getItemInMainHand())) {
-                final ItemStack itemStack = player.getEquipment().getItemInMainHand();
-                final User user = UsersHandler.getInstance().getUser(player.getUniqueId());
-                final long value = NotesHandler.getInstance().getNoteValue(itemStack);
-                final Currency currency = NotesHandler.getInstance().getNoteCurrency(itemStack);
-                final int amount = player.isSneaking() ? itemStack.getAmount() : 1;
-                final long total = value * amount;
+        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        final Player player = event.getPlayer();
+        if (player.getEquipment() != null && NotesHandler.getInstance().isNoteItem(player.getEquipment().getItemInMainHand())) {
+            final ItemStack itemStack = player.getEquipment().getItemInMainHand();
+            final User user = UsersHandler.getInstance().getUser(player.getUniqueId());
+            final long value = NotesHandler.getInstance().getNoteValue(itemStack);
+            final Currency currency = NotesHandler.getInstance().getNoteCurrency(itemStack);
+            final int amount = player.isSneaking() ? itemStack.getAmount() : 1;
+            final long total = value * amount;
 
-                user.addCurrency(currency, total);
-                itemStack.setAmount(itemStack.getAmount() - amount);
-                Response.get("currency-redeem").replace("%formatted%", currency.formatAmountFull(total)).send(player);
-            }
+            user.addCurrency(currency, total);
+            itemStack.setAmount(itemStack.getAmount() - amount);
+            Response.get("currency-redeem").replace("%formatted%", currency.formatAmountFull(total)).send(player);
         }
     }
 }

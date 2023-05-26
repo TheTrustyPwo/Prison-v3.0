@@ -16,6 +16,14 @@ currency-redeem:
   messages:
     - "&eYou have redeemed %formatted% &einto your balance"
 
+currency-pay:
+  messages:
+    - "&aYou successfully payed %amount% &ato &e%player%"
+
+currency-receive:
+  messages:
+    - "&aYou have received %amount% &afrom &e%player%"
+
 currency-set:
   messages:
     - "&aSuccessfully set &e%player%'s %currency% &abalance to %amount%"

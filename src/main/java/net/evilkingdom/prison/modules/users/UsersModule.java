@@ -1,6 +1,7 @@
 package net.evilkingdom.prison.modules.users;
 
 import net.evilkingdom.prison.commands.PluginCommand;
+import net.evilkingdom.prison.modules.users.commands.PayCommand;
 import net.evilkingdom.prison.modules.users.listeners.UserLoadListener;
 import net.evilkingdom.prison.modules.users.notes.NotesHandler;
 import net.evilkingdom.prison.modules.users.notes.commands.WithdrawCommand;
@@ -52,9 +53,10 @@ public class UsersModule extends PluginModule {
     }
 
     @Override
-    public @NotNull List<PluginCommand> getCommands() {
+    public @NotNull List<PluginCommand> initializeCommands() {
         return List.of(
                 new BalanceCommand(),
+                new PayCommand(),
                 new ProfileCommand(),
                 new CurrencyCommand(),
                 new WithdrawCommand(),
@@ -64,7 +66,7 @@ public class UsersModule extends PluginModule {
     }
 
     @Override
-    public @NotNull List<Listener> getListeners() {
+    public @NotNull List<Listener> initializeListeners() {
         return List.of(
                 new UserLoadListener(),
                 new NoteRedeemListener()
@@ -72,7 +74,7 @@ public class UsersModule extends PluginModule {
     }
 
     @Override
-    public @NotNull List<PluginHandler> getPluginHandlers() {
+    public @NotNull List<PluginHandler> initializePluginHandlers() {
         return List.of(
                 new UsersHandler(),
                 new NotesHandler(),

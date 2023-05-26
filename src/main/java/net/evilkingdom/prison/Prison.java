@@ -7,8 +7,10 @@ import net.evilkingdom.prison.commands.Commands;
 import net.evilkingdom.prison.commands.PluginCommand;
 import net.evilkingdom.prison.database.Mongo;
 import net.evilkingdom.prison.listeners.KeepChunksLoadedListener;
+import net.evilkingdom.prison.modules.privatemines.PrivateMinesModule;
 import net.evilkingdom.prison.modules.users.UsersModule;
 import net.evilkingdom.prison.plugin.PluginModule;
+import net.evilkingdom.prison.utils.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -44,7 +46,8 @@ public final class Prison extends JavaPlugin {
         loadDatabase();
         this.enabledModules = new ArrayList<>();
         loadModules(
-                new UsersModule()
+                new UsersModule(),
+                new PrivateMinesModule()
         );
 
         Bukkit.getPluginManager().registerEvents(new KeepChunksLoadedListener(), this);
@@ -75,6 +78,15 @@ public final class Prison extends JavaPlugin {
             for (Listener listener : module.getListeners()) Bukkit.getPluginManager().registerEvents(listener, this);
             this.enabledModules.add(module);
         }
+    }
+
+    public void log(final String... messages) {
+        final StringBuilder stringBuilder = new StringBuilder("&6[Prison");
+        for (int i = 0; i < messages.length - 1; i++) {
+            stringBuilder.append(" » ").append("&6").append(messages[i]);
+        }
+        stringBuilder.append("]&r ").append(messages[messages.length - 1]);
+        Bukkit.getConsoleSender().sendMessage(Text.colorize(stringBuilder.toString()));
     }
 
     public MongoDatabase getDatabase() {
