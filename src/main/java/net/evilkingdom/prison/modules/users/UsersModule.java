@@ -1,23 +1,28 @@
 package net.evilkingdom.prison.modules.users;
 
-import net.evilkingdom.prison.commands.PluginCommand;
+import net.evilkingdom.commons.commands.PluginCommand;
+import net.evilkingdom.commons.commands.parameter.ParameterType;
+import net.evilkingdom.commons.plugin.PluginHandler;
+import net.evilkingdom.commons.plugin.PluginModule;
+import net.evilkingdom.prison.modules.users.commands.BalanceCommand;
 import net.evilkingdom.prison.modules.users.commands.PayCommand;
-import net.evilkingdom.prison.modules.users.listeners.UserLoadListener;
+import net.evilkingdom.prison.modules.users.commands.ProfileCommand;
+import net.evilkingdom.prison.modules.users.commands.admin.CurrencyCommand;
+import net.evilkingdom.prison.modules.users.commands.parameters.CurrencyParameterType;
+import net.evilkingdom.prison.modules.users.commands.parameters.UserParameterType;
+import net.evilkingdom.prison.modules.users.currency.Currency;
+import net.evilkingdom.prison.modules.users.listeners.ConnectionListener;
 import net.evilkingdom.prison.modules.users.notes.NotesHandler;
 import net.evilkingdom.prison.modules.users.notes.commands.WithdrawCommand;
 import net.evilkingdom.prison.modules.users.notes.listeners.NoteRedeemListener;
 import net.evilkingdom.prison.modules.users.ranks.RanksHandler;
-import net.evilkingdom.prison.modules.users.commands.BalanceCommand;
-import net.evilkingdom.prison.modules.users.commands.ProfileCommand;
-import net.evilkingdom.prison.modules.users.commands.admin.CurrencyCommand;
 import net.evilkingdom.prison.modules.users.ranks.commands.MaxRankupCommand;
 import net.evilkingdom.prison.modules.users.ranks.commands.RankupCommand;
-import net.evilkingdom.prison.plugin.PluginHandler;
-import net.evilkingdom.prison.plugin.PluginModule;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Map;
 
 public class UsersModule extends PluginModule {
     private static UsersModule instance;
@@ -53,7 +58,7 @@ public class UsersModule extends PluginModule {
     }
 
     @Override
-    public @NotNull List<PluginCommand> initializeCommands() {
+    protected @NotNull List<PluginCommand> initializeCommands() {
         return List.of(
                 new BalanceCommand(),
                 new PayCommand(),
@@ -66,19 +71,27 @@ public class UsersModule extends PluginModule {
     }
 
     @Override
-    public @NotNull List<Listener> initializeListeners() {
+    protected @NotNull List<Listener> initializeListeners() {
         return List.of(
-                new UserLoadListener(),
+                new ConnectionListener(),
                 new NoteRedeemListener()
         );
     }
 
     @Override
-    public @NotNull List<PluginHandler> initializePluginHandlers() {
+    protected @NotNull List<PluginHandler> initializePluginHandlers() {
         return List.of(
                 new UsersHandler(),
                 new NotesHandler(),
                 new RanksHandler()
+        );
+    }
+
+    @Override
+    protected @NotNull Map<Class<?>, ParameterType<?>> initializeParameterTypes() {
+        return Map.of(
+                User.class, new UserParameterType(),
+                Currency.class, new CurrencyParameterType()
         );
     }
 }
