@@ -2,3 +2,115 @@
 
 world-name: "privatemines"
 mines-distance: 200
+
+# Themes and Schematic Files
+
+themes:
+  default:
+    mine-depth: 40
+    max-mine-size: 61
+    schematic: "default.schem"
+
+# General Configuration
+
+max-whitelist: 5
+
+# Menu Configuration
+
+menus:
+
+  main-menu:
+
+    teleport:
+      enabled: true
+      slot: 10
+      material: "DIAMOND_PICKAXE"
+      name: "&a&lTeleport to your mine"
+      lore:
+        - "&7Click to teleport to your personal mine and"
+        - "&7continue mining to earn tokens and gang"
+        - "&7value to become the top player."
+        - ""
+        - "&aClick to teleport!"
+      glowing: true
+
+    members:
+      enabled: true
+      slot: 12
+      material: "PLAYER_HEAD"
+      name: "&e&lMine Members"
+      lore:
+        - "&7Click to view and manage players that have"
+        - "&7been added to your personal mine. You can"
+        - "&7kick and invite new players via this menu."
+        - ""
+        - "&eClick to view!"
+      glowing: true
+
+    settings:
+      enabled: true
+      slot: 14
+      material: "COMPARATOR"
+      name: "&c&lMine Settings"
+      lore:
+        - "&7Change the settings of your mine"
+        - "&7which includes changing the tax, warp"
+        - "&7and visibility!"
+        - ""
+        - "&cClick to view!"
+      glowing: true
+
+    public-mines:
+      enabled: true
+      slot: 16
+      material: "BEACON"
+      name: "&b&lPublic Mines"
+      lore:
+        - "&7Teleport to other player's mines but"
+        - "&7beware that some of them charge a tax!"
+        - ""
+        - "&bClick to view!"
+      glowing: true
+
+  settings:
+
+    collect-tax:
+      enabled: true
+      slot: 13
+      material: "GOLD_INGOT"
+      name: "&e&lCollect Tax"
+      lore:
+        - "&7All the tax that players have been"
+        - "&7generating will show up here!"
+        - ""
+        - " &6* &e&lTAX: &669420 Tokens"
+        - ""
+        - "&eClick to collect mine tax!"
+
+    toggle-mine:
+      private:
+        enabled: true
+        slot: 15
+        material: "GRAY_DYE"
+        name: "&c&lMine Toggle"
+        lore:
+          - "&7This mine is private and no player can"
+          - "&7teleport to it unless they are whitelisted."
+          - ""
+          - "&c&lPRIVATE"
+          - "&cClick to toggle!"
+      public:
+        enabled: true
+        slot: 15
+        material: "LIME_DYE"
+        name: "&a&lMine Toggle"
+        lore:
+          - "&7This mine is listed in the public mines"
+          - "&7section and players can teleport to it."
+          - ""
+          - "&a&lPUBLIC"
+          - "&aClick to toggle!"
+
+# Grid Counter Storage
+# DO NOT TOUCH!
+grid-counter: 0
