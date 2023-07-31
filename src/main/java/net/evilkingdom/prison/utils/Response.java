@@ -1,5 +1,6 @@
 package net.evilkingdom.prison.utils;
 
+import net.evilkingdom.commons.utilities.text.Text;
 import net.evilkingdom.prison.Prison;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -28,7 +29,7 @@ public record Response(List<String> messages, String actionBar, SoundResponse so
         RESPONSES_CONFIG = YamlConfiguration.loadConfiguration(file);
         final ConfigurationSection section = RESPONSES_CONFIG.getConfigurationSection("");
         assert section != null;
-        for (String identifier : section.getKeys(false)) {
+        for (final String identifier : section.getKeys(false)) {
             final ConfigurationSection response = section.getConfigurationSection(identifier);
             if (response != null) RESPONSES.put(identifier, Response.from(response));
         }
