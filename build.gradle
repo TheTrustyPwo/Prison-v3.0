@@ -26,9 +26,9 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations:24.0.1'
     compileOnly('org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT')
-    compileOnly("com.mojang:authlib:1.5.25")
-    implementation('org.mongodb:mongodb-driver-sync:4.9.0')
-    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
+    compileOnly 'com.mojang:authlib:1.5.25'
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+    compileOnly files('C:\\Users\\Shuce\\IdeaProjects\\Evil Kingdom - Commons v2.0\\build\\libs\\Evil Kingdom - Commons v2.0-2.0-dev-all.jar')
     compileOnly fileTree(dir: 'libs', include: '*.jar')
 }
 
