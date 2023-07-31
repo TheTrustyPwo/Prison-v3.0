@@ -1,8 +1,8 @@
 package net.evilkingdom.prison.modules.users.commands;
 
-import net.evilkingdom.prison.commands.Command;
-import net.evilkingdom.prison.commands.PluginCommand;
-import net.evilkingdom.prison.commands.parameter.Param;
+import net.evilkingdom.commons.commands.Command;
+import net.evilkingdom.commons.commands.PluginCommand;
+import net.evilkingdom.commons.commands.parameter.Param;
 import net.evilkingdom.prison.modules.users.menu.ProfileMenu;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
