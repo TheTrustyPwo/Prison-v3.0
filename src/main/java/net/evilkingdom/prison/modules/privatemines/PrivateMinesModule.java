@@ -1,8 +1,12 @@
 package net.evilkingdom.prison.modules.privatemines;
 
-import net.evilkingdom.prison.commands.PluginCommand;
-import net.evilkingdom.prison.plugin.PluginHandler;
-import net.evilkingdom.prison.plugin.PluginModule;
+import net.evilkingdom.commons.commands.PluginCommand;
+import net.evilkingdom.commons.plugin.PluginHandler;
+import net.evilkingdom.commons.plugin.PluginModule;
+import net.evilkingdom.prison.modules.privatemines.commands.*;
+import net.evilkingdom.prison.modules.privatemines.commands.admin.PrivateMineSetSizeCommand;
+import net.evilkingdom.prison.modules.privatemines.grid.GridHandler;
+import net.evilkingdom.prison.modules.privatemines.listeners.BorderListener;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,23 +46,29 @@ public class PrivateMinesModule extends PluginModule {
     }
 
     @Override
-    public @NotNull List<PluginCommand> initializeCommands() {
+    protected @NotNull List<PluginCommand> initializeCommands() {
         return List.of(
-
+                new PrivateMineCommand(),
+                new PrivateMineCreateCommand(),
+                new PrivateMineGoCommand(),
+                new PrivateMineResetCommand(),
+                new PrivateMineSetSizeCommand(),
+                new PrivateMineToggleCommand()
         );
     }
 
     @Override
-    public @NotNull List<Listener> initializeListeners() {
+    protected @NotNull List<Listener> initializeListeners() {
         return List.of(
-
+                new BorderListener()
         );
     }
 
     @Override
-    public @NotNull List<PluginHandler> initializePluginHandlers() {
+    protected @NotNull List<PluginHandler> initializePluginHandlers() {
         return List.of(
-            new PrivateMinesHandler()
+                new GridHandler(),
+                new PrivateMinesHandler()
         );
     }
 }
