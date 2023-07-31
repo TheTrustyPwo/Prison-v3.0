@@ -1,6 +1,6 @@
 package net.evilkingdom.prison.menu;
 
-import net.evilkingdom.prison.item.ItemBuilder;
+import net.evilkingdom.commons.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -16,6 +16,12 @@ public abstract class Button {
 
     public abstract @NotNull String getName(@NotNull final Player player);
 
+    public abstract int getSlot(@NotNull final Player player);
+
+    public boolean isEnabled(@NotNull final Player player) {
+        return true;
+    }
+
     public @NotNull List<String> getLore(@NotNull final Player player) {
         return List.of();
     }
@@ -23,6 +29,8 @@ public abstract class Button {
     public int getAmount(@NotNull final Player player) {
         return 1;
     }
+
+    public short getDamage(@NotNull final Player player) { return 0; }
 
     public boolean isGlowing(@NotNull final Player player) {
         return false;
@@ -32,7 +40,7 @@ public abstract class Button {
         return null;
     }
 
-    public abstract void onClick(@NotNull Player player, @NotNull ClickType clickType);
+    public void onClick(@NotNull Player player, @NotNull ClickType clickType) {};
 
     public @NotNull ItemStack getItem(@NotNull final Player player) {
         return ItemBuilder.of(getMaterial(player)).name(getName(player)).lore(getLore(player)).amount(getAmount(player)).glow(isGlowing(player))

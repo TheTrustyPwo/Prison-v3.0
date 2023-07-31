@@ -1,7 +1,7 @@
 package net.evilkingdom.prison.modules.users.listeners;
 
-import net.evilkingdom.prison.modules.users.UsersHandler;
 import net.evilkingdom.prison.modules.users.User;
+import net.evilkingdom.prison.modules.users.UsersHandler;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -9,13 +9,14 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
-public class UserLoadListener implements Listener {
+public class ConnectionListener implements Listener {
 
     @EventHandler
     public void onPlayerPreLoginEvent(final AsyncPlayerPreLoginEvent event) {
-        final User user = UsersHandler.getInstance().getOrLoadAndCacheUser(event.getUniqueId());
-        UsersHandler.getInstance().cacheUser(user);
+        UsersHandler.getInstance().getOrLoadAndCacheUserAsync(event.getUniqueId())
+                .thenAcceptAsync(user -> UsersHandler.getInstance().cacheUser(user));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

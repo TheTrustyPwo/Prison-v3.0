@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.Set;
 
 public class ProfileMenu extends Menu {
     @Override
@@ -21,9 +22,9 @@ public class ProfileMenu extends Menu {
     }
 
     @Override
-    public @NotNull Map<Integer, Button> getButtons() {
-        return Map.of(
-                10, new PlayerButton()
+    public @NotNull Set<Button> getButtons() {
+        return Set.of(
+                new PlayerButton()
         );
     }
 
@@ -37,6 +38,11 @@ public class ProfileMenu extends Menu {
         @Override
         public @NotNull String getName(@NotNull Player player) {
             return player.getName();
+        }
+
+        @Override
+        public int getSlot(@NotNull Player player) {
+            return 10;
         }
 
         @Override

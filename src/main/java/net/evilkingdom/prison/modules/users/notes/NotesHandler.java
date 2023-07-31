@@ -1,11 +1,11 @@
 package net.evilkingdom.prison.modules.users.notes;
 
+import net.evilkingdom.commons.item.ItemBuilder;
+import net.evilkingdom.commons.plugin.PluginHandler;
+import net.evilkingdom.commons.plugin.PluginModule;
 import net.evilkingdom.prison.Prison;
-import net.evilkingdom.prison.item.ItemBuilder;
 import net.evilkingdom.prison.modules.users.UsersModule;
 import net.evilkingdom.prison.modules.users.currency.Currency;
-import net.evilkingdom.prison.plugin.PluginHandler;
-import net.evilkingdom.prison.plugin.PluginModule;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;

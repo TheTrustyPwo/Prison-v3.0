@@ -1,7 +1,7 @@
 package net.evilkingdom.prison.modules.users.currency;
 
-import net.evilkingdom.prison.utils.Text;
-import net.evilkingdom.prison.utils.numbers.Numbers;
+import net.evilkingdom.commons.utilities.numbers.Numbers;
+import net.evilkingdom.commons.utilities.text.Text;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 

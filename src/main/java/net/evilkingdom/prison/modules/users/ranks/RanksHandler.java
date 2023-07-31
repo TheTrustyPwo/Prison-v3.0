@@ -1,12 +1,12 @@
 package net.evilkingdom.prison.modules.users.ranks;
 
+import net.evilkingdom.commons.plugin.PluginHandler;
+import net.evilkingdom.commons.plugin.PluginModule;
+import net.evilkingdom.commons.utilities.numbers.NumberFormatType;
+import net.evilkingdom.commons.utilities.numbers.Numbers;
 import net.evilkingdom.prison.modules.users.UsersModule;
 import net.evilkingdom.prison.modules.users.ranks.algorithm.RankupAlgorithm;
 import net.evilkingdom.prison.modules.users.ranks.algorithm.RankupAlgorithmType;
-import net.evilkingdom.prison.plugin.PluginHandler;
-import net.evilkingdom.prison.plugin.PluginModule;
-import net.evilkingdom.prison.utils.numbers.NumberFormatType;
-import net.evilkingdom.prison.utils.numbers.Numbers;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 
