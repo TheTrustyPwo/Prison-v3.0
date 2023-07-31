@@ -90,6 +90,109 @@ maxrankup:
     stay: 15
     fade-out: 5
 
+# Private Mine Responses
+
+no-privatemine:
+  messages:
+    - "&c&l(!) &cYou do not own a private mine!"
+    - "Do &4/mine create &cto create one"
+
+target-no-privatemine:
+  messages:
+    - "&c&l(!) &4%player% &cdoes not have a private mine!"
+
+privatemine-creating:
+  messages:
+    - "&eCreating your private mine..."
+  title:
+    title: "&6&lCreating..."
+    subtitle: "&7Hang on tight!"
+    fade-in: 5
+    stay: 25
+    fade-out: 5
+
+privatemine-created:
+  messages:
+    - "&aYour private mine has been created!"
+  title:
+    title: "&a&lSUCCESS"
+    subtitle: "&7&o(( Created Private Mine ))"
+    fade-in: 5
+    stay: 20
+    fade-out: 5
+
+privatemine-go:
+  messages:
+    - "&aTeleported to your private mine!"
+  title:
+    title: "&a&lTeleporting..."
+    subtitle: ""
+    fade-in: 5
+    stay: 20
+    fade-out: 5
+
+privatemine-reset:
+  messages:
+    - "&aYour private mine has been reset!"
+  title:
+    title: "&a&lResetting..."
+    subtitle: ""
+    fade-in: 5
+    stay: 20
+    fade-out: 5
+
+privatemine-toggle-private:
+  messages:
+    - "&eYour private mine visibility is now &c&lPRIVATE"
+  title:
+    title: "&c&lPRIVATE"
+    subtitle: "&7&o(( Modified Private Mine Visibility ))"
+    fade-in: 5
+    stay: 20
+    fade-out: 5
+
+privatemine-toggle-public:
+  messages:
+    - "&eYour private mine visibility is now &a&lPUBLIC"
+  title:
+    title: "&a&lPUBLIC"
+    subtitle: "&7&o(( Modified Private Mine Visibility ))"
+    fade-in: 5
+    stay: 20
+    fade-out: 5
+
+privatemine-whitelist:
+  messages:
+    - "&aWhitelisted &e%player% &ato your private mine!"
+  title:
+    title: "&a&lSUCCESS"
+    subtitle: "&7&o(( Whitelisted %player% ))"
+    fade-in: 5
+    stay: 20
+    fade-out: 5
+
+privatemine-already-whitelisted:
+  messages:
+    - "&c&l(!) &4%player% &cis already whitelisted!"
+
+privatemine-max-whitelist:
+  messages:
+    - "&c&l(!) &cYou cannot whitelist more than &4%max% &cplayers!"
+
+privatemine-setsize:
+  messages:
+    - "&aSuccessfully set &e%player%'s &aprivate mine size to &e%size%"
+  title:
+    title: "&a&lSUCCESS"
+    subtitle: "&7&o(( Modified %player%'s Private Mine ))"
+    fade-in: 5
+    stay: 20
+    fade-out: 5
+
+privatemine-invalid-size:
+  messages:
+    - "&c&l(!) &cMine size must be an odd number more than 3 and less than the max size of %max%!"
+
 # Errors
 
 only-players-command:
