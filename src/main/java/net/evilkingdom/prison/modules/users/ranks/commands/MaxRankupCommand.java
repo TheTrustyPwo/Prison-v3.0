@@ -1,14 +1,14 @@
 package net.evilkingdom.prison.modules.users.ranks.commands;
 
-import net.evilkingdom.prison.commands.Command;
-import net.evilkingdom.prison.commands.PluginCommand;
+import net.evilkingdom.commons.commands.Command;
+import net.evilkingdom.commons.commands.PluginCommand;
+import net.evilkingdom.commons.utilities.numbers.Numbers;
 import net.evilkingdom.prison.modules.users.User;
 import net.evilkingdom.prison.modules.users.UsersHandler;
 import net.evilkingdom.prison.modules.users.currency.Currency;
 import net.evilkingdom.prison.modules.users.ranks.RanksHandler;
 import net.evilkingdom.prison.modules.users.ranks.events.PlayerRankupEvent;
 import net.evilkingdom.prison.utils.Response;
-import net.evilkingdom.prison.utils.numbers.Numbers;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
