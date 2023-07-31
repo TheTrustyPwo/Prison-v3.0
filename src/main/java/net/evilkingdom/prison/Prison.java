@@ -31,7 +31,6 @@ public final class Prison extends PluginFramework {
         gson = gsonBuilder.create();
     }
 
-    private Mongo mongo;
     private MongoDatabase database;
     private List<PluginModule> enabledModules;
 
@@ -48,53 +47,26 @@ public final class Prison extends PluginFramework {
         instance = this;
         saveDefaultConfig();
 
-        loadDatabase();
-        this.enabledModules = new ArrayList<>();
-        loadModules(
-                new UsersModule(),
-                new PrivateMinesModule()
-        );
-
+        super.onEnable();
         Bukkit.getPluginManager().registerEvents(new KeepChunksLoadedListener(), this);
     }
 
     @Override
     public void onDisable() {
-        for (final PluginModule module : this.enabledModules) {
-            module.onDisable();
-        }
+        super.onDisable();
     }
 
-    private void loadDatabase() {
-        final String connectionUri = getConfig().getString("mongo.connection_url");
-        final String database = getConfig().getString("mongo.database");
-        assert connectionUri != null;
-        assert database != null;
-        this.mongo = new Mongo();
-        this.mongo.connect(connectionUri);
-        this.database = this.mongo.getClient().getDatabase(database);
+    @Override
+    protected List<PluginModule> initializePluginModules() {
+        return List.of(
+                new UsersModule(),
+                new PrivateMinesModule()
+        );
     }
 
-    private void loadModules(PluginModule... modules) {
-        for (PluginModule module : modules) {
-            getLogger().info(String.format("Loading %s module", module.getName()));
-            module.onEnable();
-            for (PluginCommand command : module.getCommands()) Commands.register(command, this);
-            for (Listener listener : module.getListeners()) Bukkit.getPluginManager().registerEvents(listener, this);
-            this.enabledModules.add(module);
-        }
-    }
-
-    public void log(final String... messages) {
-        final StringBuilder stringBuilder = new StringBuilder("&6[Prison");
-        for (int i = 0; i < messages.length - 1; i++) {
-            stringBuilder.append(" » ").append("&6").append(messages[i]);
-        }
-        stringBuilder.append("]&r ").append(messages[messages.length - 1]);
-        Bukkit.getConsoleSender().sendMessage(Text.colorize(stringBuilder.toString()));
-    }
-
-    public MongoDatabase getDatabase() {
-        return database;
+    public MongoDatabase getMongoDatabase() {
+        final String databaseName = getConfig().getString("mongo.database-name");
+        assert databaseName != null;
+        return this.getDatabase().getMongoDB().getClient().getDatabase(databaseName);
     }
 }
