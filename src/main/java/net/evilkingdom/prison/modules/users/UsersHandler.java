@@ -4,9 +4,9 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
+import net.evilkingdom.commons.plugin.PluginHandler;
+import net.evilkingdom.commons.plugin.PluginModule;
 import net.evilkingdom.prison.Prison;
-import net.evilkingdom.prison.plugin.PluginHandler;
-import net.evilkingdom.prison.plugin.PluginModule;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.json.JsonMode;
@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -25,15 +26,8 @@ public class UsersHandler extends PluginHandler {
     private static final JsonWriterSettings JSON_WRITER_SETTINGS = JsonWriterSettings.builder().outputMode(JsonMode.RELAXED).build();
     private static UsersHandler instance;
 
-    private final ConcurrentHashMap<UUID, User> users;
-    private final MongoCollection<Document> usersCollection;
-
-    public UsersHandler() {
-        instance = this;
-        this.users = new ConcurrentHashMap<>();
-        this.usersCollection = Prison.getInstance().getDatabase().getCollection("users");
-        this.usersCollection.createIndex(new BasicDBObject("_id", 1));
-    }
+    private ConcurrentHashMap<UUID, User> users;
+    private MongoCollection<Document> usersCollection;
 
     public static UsersHandler getInstance() {
         return instance;
@@ -46,22 +40,27 @@ public class UsersHandler extends PluginHandler {
 
     @Override
     public void load() {
+        instance = this;
+        this.users = new ConcurrentHashMap<>();
+        this.usersCollection = Prison.getInstance().getMongoDatabase().getCollection("users");
+        this.usersCollection.createIndex(new BasicDBObject("_id", 1));
         Bukkit.getScheduler().runTaskLater(Prison.getInstance(), this::loadOnlinePlayers, 10L);
     }
 
     @Override
     public void unload() {
         super.unload();
-        for (final User user : getUsers()) {
-            saveUser(user);
-        }
+        CompletableFuture<?>[] saveUsersFuture = getUsers().stream()
+                .map(this::saveUserAsync)
+                .toArray(CompletableFuture[]::new);
+        CompletableFuture.allOf(saveUsersFuture).join();
     }
 
     public void loadOnlinePlayers() {
-        for (final Player player : Bukkit.getOnlinePlayers()) {
-            final User user = loadUser(player.getUniqueId());
-            cacheUser(user);
-        }
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            CompletableFuture<User> loadUserFuture = loadUserAsync(player.getUniqueId());
+            loadUserFuture.thenAccept(this::cacheUser);
+        });
     }
 
     @NotNull
@@ -75,6 +74,16 @@ public class UsersHandler extends PluginHandler {
         return Prison.getGson().fromJson(document.toJson(JSON_WRITER_SETTINGS), User.class);
     }
 
+    public CompletableFuture<User> loadUserAsync(@NotNull final UUID uuid) {
+        final CompletableFuture<Document> findFuture = CompletableFuture.supplyAsync(() ->
+                usersCollection.find(Filters.eq("_id", uuid.toString())).first());
+
+        return findFuture.thenApplyAsync(document -> {
+            if (document == null) return new User(uuid);
+            return Prison.getGson().fromJson(document.toJson(JSON_WRITER_SETTINGS), User.class);
+        });
+    }
+
     public void saveUser(@NotNull final User user) {
         assert !Bukkit.isPrimaryThread() : "Cannot save user on primary thread";
 
@@ -83,6 +92,14 @@ public class UsersHandler extends PluginHandler {
         final ReplaceOptions options = new ReplaceOptions().upsert(true);
 
         this.usersCollection.replaceOne(query, document, options);
+    }
+
+    public CompletableFuture<Void> saveUserAsync(@NotNull final User user) {
+        final Bson query = Filters.eq("_id", user.getUuid().toString());
+        final Document document = Document.parse(Prison.getGson().toJson(user));
+        final ReplaceOptions options = new ReplaceOptions().upsert(true);
+
+        return CompletableFuture.runAsync(() -> usersCollection.replaceOne(query, document, options));
     }
 
     @NotNull
@@ -98,6 +115,20 @@ public class UsersHandler extends PluginHandler {
             return user;
         }
     }
+
+    public CompletableFuture<User> getOrLoadAndCacheUserAsync(@NotNull final UUID uuid) {
+        if (this.users.containsKey(uuid)) {
+            return CompletableFuture.completedFuture(getUser(uuid));
+        } else {
+            CompletableFuture<User> loadUserFuture = loadUserAsync(uuid);
+            return loadUserFuture.thenApplyAsync(user -> {
+                user.setCacheExpiry(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(30L));
+                this.users.put(uuid, user);
+                return user;
+            });
+        }
+    }
+
 
     @NotNull
     public Collection<User> getUsers() {

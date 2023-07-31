@@ -1,8 +1,6 @@
 package net.evilkingdom.prison.modules.users;
 
-import com.google.gson.annotations.JsonAdapter;
 import net.evilkingdom.prison.modules.users.currency.Currency;
-import net.evilkingdom.prison.modules.users.currency.serializers.CurrencySerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -13,12 +11,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public class User {
-    private final transient boolean requireSave = false;
-    private @NotNull
-    final UUID uuid;
-    @JsonAdapter(CurrencySerializer.class)
-    private final Map<Currency, Long> currencies;
     private transient long cacheExpiry = 0L;
+
+    private @NotNull final UUID uuid;
+    private final Map<Currency, Long> currencies;
     private long rank;
 
     public User(final @NotNull UUID uuid) {
@@ -35,7 +31,9 @@ public class User {
         return getPlayer().getName();
     }
 
-    public Player getPlayer() { return Bukkit.getPlayer(this.uuid); }
+    public Player getPlayer() {
+        return Bukkit.getPlayer(this.uuid);
+    }
 
     public long getRank() {
         return rank;
