@@ -3,22 +3,23 @@ package net.evilkingdom.prison;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mongodb.client.MongoDatabase;
-import net.evilkingdom.prison.commands.Commands;
-import net.evilkingdom.prison.commands.PluginCommand;
-import net.evilkingdom.prison.database.Mongo;
+import net.evilkingdom.commons.plugin.PluginFramework;
+import net.evilkingdom.commons.plugin.PluginModule;
+import net.evilkingdom.prison.internal.serializers.LocationAdapter;
 import net.evilkingdom.prison.listeners.KeepChunksLoadedListener;
+import net.evilkingdom.prison.modules.privatemines.PrivateMine;
 import net.evilkingdom.prison.modules.privatemines.PrivateMinesModule;
+import net.evilkingdom.prison.modules.privatemines.serializers.PrivateMineAdapter;
 import net.evilkingdom.prison.modules.users.UsersModule;
-import net.evilkingdom.prison.plugin.PluginModule;
-import net.evilkingdom.prison.utils.Text;
+import net.evilkingdom.prison.modules.users.currency.serializers.CurrencyAdapter;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.Location;
+import org.bukkit.Material;
 
-import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
-public final class Prison extends JavaPlugin {
+public final class Prison extends PluginFramework {
     private static final Gson gson;
     private static Prison instance;
 
