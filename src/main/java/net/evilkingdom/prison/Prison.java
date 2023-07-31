@@ -24,7 +24,11 @@ public final class Prison extends PluginFramework {
     private static Prison instance;
 
     static {
-        gson = new GsonBuilder().create();
+        final GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Location.class, new LocationAdapter());
+        gsonBuilder.registerTypeAdapter(Currency.class, new CurrencyAdapter());
+        gsonBuilder.registerTypeAdapter(PrivateMine.class, new PrivateMineAdapter());
+        gson = gsonBuilder.create();
     }
 
     private Mongo mongo;
